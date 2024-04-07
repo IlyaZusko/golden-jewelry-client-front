@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google';
 // eslint-disable-next-line import/no-unassigned-import
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { Providers } from '@/lib/store/providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={cn('min-h-screen', fog.variable, inter.className)}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -1,4 +1,6 @@
+import { User } from 'firebase/auth';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import { Button } from './ui/button';
@@ -11,7 +13,11 @@ import {
   SheetTrigger,
 } from './ui/sheet';
 
-const MainAppHeader = () => {
+interface IMainAppHeader {
+  isAuth: false | User | null;
+}
+
+const MainAppHeader = ({ isAuth }: IMainAppHeader) => {
   return (
     <div className="fixed top-0 z-20 w-full flex flex-row justify-between px-[30px] sm:px-[60px] lg:px-[120px] py-6 text-white items-center text-sm bg-gradient-to-b from-black/60 gap-x-6">
       <div className="custom800:hidden">
@@ -62,7 +68,11 @@ const MainAppHeader = () => {
         </button>
       </nav>
       <Button variant={'default'} className="py-2 px-5 hidden custom800:flex">
-        Войти
+        {isAuth ? (
+          <Link href={'/profile'}>Профиль</Link>
+        ) : (
+          <Link href={'/auth/sign-in'}>Войти</Link>
+        )}
       </Button>
     </div>
   );
