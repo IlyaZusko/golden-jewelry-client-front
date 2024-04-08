@@ -15,11 +15,12 @@ import {
 
 interface IMainAppHeader {
   isAuth: false | User | null;
+  isHideRightButtons?: boolean;
 }
 
-const MainAppHeader = ({ isAuth }: IMainAppHeader) => {
+const MainAppHeader = ({ isAuth, isHideRightButtons }: IMainAppHeader) => {
   return (
-    <div className="fixed top-0 z-20 w-full flex flex-row justify-between px-[30px] sm:px-[60px] lg:px-[120px] py-6 text-white items-center text-sm bg-gradient-to-b from-black/60 gap-x-6">
+    <div className="fixed top-0 z-20 w-full flex flex-row justify-between px-[30px] sm:px-[60px] lg:px-[120px] py-6 text-white items-center text-sm bg-gradient-to-b from-black/60 gap-x-6 bg-blend-color-burn">
       <div className="custom800:hidden">
         <Sheet>
           <SheetTrigger className="w-[39px] h-[39px] rounded-full bg-custom-yellow flex justify-center items-center">
@@ -46,10 +47,12 @@ const MainAppHeader = ({ isAuth }: IMainAppHeader) => {
           </SheetContent>
         </Sheet>
       </div>
-
-      <p className="font-foglihten text-base sm:text-xl sm:text-right font-medium text-white min-w-[181px]">
+      <Link
+        className="font-foglihten text-base sm:text-xl sm:text-right font-medium text-white min-w-[181px]"
+        href={'/'}
+      >
         Golden Jewelry
-      </p>
+      </Link>
       <nav className="hidden custom800:flex w-full flex-row items-center justify-between lg:justify-center lg:gap-x-8">
         <button className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
           Каталог
@@ -67,13 +70,15 @@ const MainAppHeader = ({ isAuth }: IMainAppHeader) => {
           Написать нам
         </button>
       </nav>
-      <Button variant={'default'} className="py-2 px-5 hidden custom800:flex">
-        {isAuth ? (
-          <Link href={'/profile'}>Профиль</Link>
-        ) : (
-          <Link href={'/auth/sign-in'}>Войти</Link>
-        )}
-      </Button>
+      {!isHideRightButtons && (
+        <Button variant={'default'} className="py-2 px-5 hidden custom800:flex">
+          {isAuth ? (
+            <Link href={'/profile'}>Профиль</Link>
+          ) : (
+            <Link href={'/auth/sign-in'}>Войти</Link>
+          )}
+        </Button>
+      )}
     </div>
   );
 };
