@@ -11,6 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           'bg-custom-yellow text-xs font-semibold text-custom-black-title rounded-3xl transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-yellow-400/30',
+        outline:
+          'text-xs border border-custom-yellow font-semibold text-white rounded-3xl duration-300 ease-in-out hover:bg-custom-yellow hover:text-custom-black-title',
         custom: '',
       },
       size: {
