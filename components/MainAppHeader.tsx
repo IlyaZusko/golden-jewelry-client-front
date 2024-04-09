@@ -54,14 +54,14 @@ const MainAppHeader = ({ isAuth, isHideRightButtons }: IMainAppHeader) => {
         Golden Jewelry
       </Link>
       <nav className="hidden custom800:flex w-full flex-row items-center justify-between lg:justify-center lg:gap-x-8">
-        <button className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
+        <Link
+          className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+          href={'/catalog'}
+        >
           Каталог
-        </button>
+        </Link>
         <button className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
           Услуги
-        </button>
-        <button className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
-          Изготовление
         </button>
         <button className="relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">
           О нас
