@@ -4,10 +4,12 @@ import { IProduct } from '../models/Product';
 
 export interface IProductsState {
   listProducts: IProduct[];
+  listBucket: IProduct[];
 }
 
 const initialState: IProductsState = {
   listProducts: [] as IProduct[],
+  listBucket: [] as IProduct[],
 };
 
 export const productsSlice = createSlice({
@@ -21,7 +23,23 @@ export const productsSlice = createSlice({
         state.listProducts = [...state.listProducts, action.payload];
       }
     },
+    setListBucket: (state, action: PayloadAction<IProduct>) => {
+      if (
+        !state.listBucket.find((product) => product.id === action.payload.id)
+      ) {
+        state.listBucket = [...state.listBucket, action.payload];
+      }
+    },
+    removeFromBucket: (state, action: PayloadAction<IProduct>) => {
+      state.listBucket = state.listBucket.filter(
+        (product) => product.id !== action.payload.id,
+      );
+    },
+    clearBucket: (state) => {
+      state.listBucket = [];
+    },
   },
 });
 
-export const { setListProducts } = productsSlice.actions;
+export const { setListProducts, setListBucket, removeFromBucket, clearBucket } =
+  productsSlice.actions;

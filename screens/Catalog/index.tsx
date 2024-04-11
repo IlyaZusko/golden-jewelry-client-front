@@ -19,17 +19,11 @@ const CatalogScreen = () => {
   useEffect(() => {
     getDocs(collection(db, 'products')).then((res) => {
       res.forEach((doc) => {
-        // console.log(doc.data());
         dispatch(setListProducts(doc.data() as IProduct));
       });
     });
   }, [dispatch]);
-  // onSnapshot(doc(db, 'users', user.uid), (doc) => {
-  //   const data = doc.data() as IFirestoreUser;
-  //   dispatch(setUserState(data));
-  // });
 
-  // console.log(listProducts);
   if (listProducts.length === 0) {
     return null;
   }

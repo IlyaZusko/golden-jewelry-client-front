@@ -7,6 +7,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 
+import TabContentBucket from './TabContentBucket';
 import TabContentOrders from './TabContentOrders';
 
 const Tabs = () => {
@@ -16,7 +17,7 @@ const Tabs = () => {
         <TabsTrigger value="orders" className="flex-1 text-xs sm:text-sm">
           Заказы
         </TabsTrigger>
-        <TabsTrigger value="busket" className="flex-1 text-xs sm:text-sm">
+        <TabsTrigger value="bucket" className="flex-1 text-xs sm:text-sm">
           Корзина
         </TabsTrigger>
         <TabsTrigger value="account" className="flex-1 text-xs sm:text-sm">
@@ -27,6 +28,7 @@ const Tabs = () => {
         </TabsTrigger>
       </TabsList>
       <TabContentOrders />
+      <TabContentBucket />
       <TabsContent value="password">Change your password here.</TabsContent>
     </TabsMain>
   );
