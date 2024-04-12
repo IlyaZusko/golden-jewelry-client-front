@@ -1,15 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IProduct } from '../models/Product';
+import { IProduct, IProductOrder } from '../models/Product';
 
 export interface IProductsState {
   listProducts: IProduct[];
   listBucket: IProduct[];
+  order: IProductOrder;
 }
 
 const initialState: IProductsState = {
   listProducts: [] as IProduct[],
   listBucket: [] as IProduct[],
+  order: {} as IProductOrder,
 };
 
 export const productsSlice = createSlice({
@@ -38,8 +40,21 @@ export const productsSlice = createSlice({
     clearBucket: (state) => {
       state.listBucket = [];
     },
+    setOrder: (state, action: PayloadAction<IProductOrder>) => {
+      state.order = action.payload;
+    },
+    clearProducts: (state) => {
+      state.listProducts = [] as IProduct[];
+      state.listBucket = [] as IProduct[];
+      state.order = {} as IProductOrder;
+    },
   },
 });
 
-export const { setListProducts, setListBucket, removeFromBucket, clearBucket } =
-  productsSlice.actions;
+export const {
+  setListProducts,
+  setListBucket,
+  removeFromBucket,
+  clearBucket,
+  clearProducts,
+} = productsSlice.actions;

@@ -8,6 +8,7 @@ import {
   where,
 } from 'firebase/firestore';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,8 @@ import {
 } from '@/lib/store/service/productsSlice';
 import { cn } from '@/lib/utils';
 
+import ModalPlaceOrder from './ModalPlaceOrder';
+
 const TabContentBucket = () => {
   const user = useUser();
   const dispatch = useAppDispatch();
@@ -31,7 +34,7 @@ const TabContentBucket = () => {
   const { listBucket } = useAppSelector((state) => state.products);
 
   useEffect(() => {
-    if (bucket.length > 0) {
+    if (bucket && bucket.length > 0) {
       const q = query(collection(db, 'products'), where('id', 'in', bucket));
       getDocs(q).then((res) => {
         const newBucketItems: IProduct[] = [];
@@ -88,13 +91,7 @@ const TabContentBucket = () => {
             Общая сумма корзины:
             <p className="font-medium">{getTotalBucketPrice()}</p>BYN
           </p>
-          <Button
-            size="small"
-            disabled={listBucket.length === 0}
-            onClick={() => alert('В разработке...')}
-          >
-            Заказать
-          </Button>
+          <ModalPlaceOrder />
           <Button
             size="small"
             variant="outlineRevert"
@@ -108,7 +105,12 @@ const TabContentBucket = () => {
       <div className="flex flex-col gap-y-3">
         {listBucket.length === 0 && (
           <div className="w-full flex justify-center pt-8">
-            <p>Ваша корзина пуста</p>
+            <p className="text-base font-light max-w-[270px] text-center">
+              Ваша корзина пуста. Вы можете добавить товары в корзину в
+              <Link href="/catalog" className="underline pl-1">
+                Каталоге
+              </Link>
+            </p>
           </div>
         )}
         {listBucket.map((product, index) => (

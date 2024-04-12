@@ -34,8 +34,7 @@ const SignInScreen = () => {
     onSubmit: async (values) => {
       const { email, password } = values;
       signInWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-          console.log('Success', res);
+        .then(() => {
           router.push('/profile');
         })
         .catch((error) => console.log(error.message));

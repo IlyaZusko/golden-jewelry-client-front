@@ -5,3 +5,11 @@ export interface IProduct {
   image: string;
   price: number;
 }
+
+export interface IProductOrder {
+  recieveDate: string;
+  recieveTime: string;
+  userPhone: string;
+  comment: string;
+  orderProducts: string;
+}

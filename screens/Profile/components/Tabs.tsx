@@ -12,7 +12,7 @@ import TabContentOrders from './TabContentOrders';
 
 const Tabs = () => {
   return (
-    <TabsMain defaultValue="orders">
+    <TabsMain defaultValue="bucket">
       <TabsList className="w-full">
         <TabsTrigger value="orders" className="flex-1 text-xs sm:text-sm">
           Заказы
@@ -22,9 +22,6 @@ const Tabs = () => {
         </TabsTrigger>
         <TabsTrigger value="account" className="flex-1 text-xs sm:text-sm">
           Аккаунт
-        </TabsTrigger>
-        <TabsTrigger value="settings" className="flex-1 text-xs sm:text-sm">
-          Настройки
         </TabsTrigger>
       </TabsList>
       <TabContentOrders />
