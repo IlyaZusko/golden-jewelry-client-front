@@ -24,6 +24,7 @@ export const SignUpSchema = Yup.object().shape({
     .min(2, 'Должно содержать минимум 2 символа')
     .max(50, 'Должно быть короче 50 символов')
     .required('Обязательное поле*'),
+  phoneNumber: Yup.string().required('Обязательное поле*'),
   email: Yup.string()
     .email('Введите корректный адрес электронной почты')
     .max(50, 'Должен быть короче 50 символов')

@@ -3,4 +3,5 @@ export interface IFirestoreUser {
   lastName: string;
   email: string;
   bucket: string[];
+  phone: string;
 }

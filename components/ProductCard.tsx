@@ -23,17 +23,6 @@ const ProductCard = ({ product }: IProductCard) => {
   const dispatch = useAppDispatch();
   const { listBucket } = useAppSelector((state) => state.products);
 
-  // const [numberOfProducts, setNumberOfProducts] = useState<number>(1);
-
-  // const handlechangeNumberOfProducts = (isIncrement: boolean) => {
-  //   if (isIncrement && numberOfProducts <= 9) {
-  //     setNumberOfProducts(numberOfProducts + 1);
-  //   }
-  //   if (!isIncrement && numberOfProducts > 1) {
-  //     setNumberOfProducts(numberOfProducts - 1);
-  //   }
-  // };
-
   const handleAddProductToBusket = async () => {
     if (user) {
       const usersRef = doc(db, 'users', user.uid);
@@ -87,22 +76,7 @@ const ProductCard = ({ product }: IProductCard) => {
             <div className="flex flex-col pt-3 gap-y-2">
               <p className="text-xl  font-medium">{product.name}</p>
               <p className="text-2xl font-medium">{product.price} BYN</p>
-              <div className="flex flex-row gap-x-2 mt-3">
-                {/* <div className="flex flex-row items-center gap-x-6 bg-white border justify-between px-3  rounded-full">
-                  <button
-                    className="text-xl flex items-center justify-center h-3 font-foglihten"
-                    onClick={() => handlechangeNumberOfProducts(false)}
-                  >
-                    -
-                  </button>
-                  <p className="text-xs font-light">{numberOfProducts}</p>
-                  <button
-                    className="text-xl flex items-center justify-center h-3 font-foglihten"
-                    onClick={() => handlechangeNumberOfProducts(true)}
-                  >
-                    +
-                  </button>
-                </div> */}
+              <div className="flex flex-col gap-x-2 mt-3">
                 {listBucket.some((item) => item.id === product.id) ? (
                   <Button
                     size="small"
@@ -117,9 +91,16 @@ const ProductCard = ({ product }: IProductCard) => {
                     size="small"
                     variant="default"
                     onClick={() => handleAddProductToBusket()}
+                    disabled={!user}
+                    className="max-w-[100px]"
                   >
                     В корзину
                   </Button>
+                )}
+                {!user && (
+                  <p className="text-[#EB5757] text-xs mt-1">
+                    Для добавления товара в корзину вам нужно войти в аккаунт
+                  </p>
                 )}
               </div>
               <p className="text-xs font-light mt-1">{product.description}</p>

@@ -7,9 +7,16 @@ export interface PhoneInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   onChange: (v: string) => void;
   error?: string | null;
+  forForm?: boolean;
 }
 
-const PhoneInput = ({ value, onChange, error, ...props }: PhoneInputProps) => {
+const PhoneInput = ({
+  value,
+  onChange,
+  error,
+  forForm,
+  ...props
+}: PhoneInputProps) => {
   return (
     <div className="w-full">
       <InputMask
@@ -18,6 +25,7 @@ const PhoneInput = ({ value, onChange, error, ...props }: PhoneInputProps) => {
         className={cn(
           'w-full h-10 bg-white border-[#BEBEBE] rounded-full text-black px-5 text-xs',
           error ? 'border-[#EB5757]' : '',
+          forForm && 'px-4 py-2 h-auto font-medium',
         )}
         onChange={(e) => onChange(e.target.value)}
         value={value}

@@ -17,7 +17,10 @@ export const userSlice = createSlice({
     setUserState: (state, action: PayloadAction<IFirestoreUser>) => {
       state.userData = action.payload;
     },
+    clearUserData: (state) => {
+      state.userData = {} as IFirestoreUser;
+    },
   },
 });
 
-export const { setUserState } = userSlice.actions;
+export const { setUserState, clearUserData } = userSlice.actions;

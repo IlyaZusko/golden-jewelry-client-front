@@ -23,3 +23,11 @@ export const advantagesComponent = [
     icon: require('@/public/icons/gem-2.svg'),
   },
 ];
+
+export enum OrderStatuses {
+  InProcessing = 'В Обработке',
+  Accepted = 'Принят',
+  Sent = 'Отправлен',
+  Delivered = 'Доставлен',
+  Cancelled = 'Отменён',
+}

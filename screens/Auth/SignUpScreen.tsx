@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
+import PhoneInput from '@/components/PhoneInput';
 import TextInput from '@/components/TextInput';
 import { Button } from '@/components/ui/button';
 import { auth, db } from '@/firebase/config';
@@ -17,6 +18,7 @@ import { SignUpSchema } from './utils';
 interface ISignIn {
   firstName: string;
   lastName: string;
+  phoneNumber: string;
   email: string;
   password: string;
   passwordRepeat: string;
@@ -25,6 +27,7 @@ interface ISignIn {
 const initialValues: ISignIn = {
   firstName: '',
   lastName: '',
+  phoneNumber: '',
   email: '',
   password: '',
   passwordRepeat: '',
@@ -39,7 +42,8 @@ const SignUpScreen = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { firstName, lastName, email, passwordRepeat } = values;
+      const { firstName, lastName, email, passwordRepeat, phoneNumber } =
+        values;
       const user = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -51,6 +55,8 @@ const SignUpScreen = () => {
         firstName,
         lastName,
         email,
+        phone: phoneNumber,
+        bucket: [],
       });
       router.push('/auth/sign-in');
     },
@@ -94,6 +100,10 @@ const SignUpScreen = () => {
           onChange={(v) => setFieldValue('email', v)}
           placeholder="Электронная почта"
           error={errors.email}
+        />
+        <PhoneInput
+          value={values.phoneNumber}
+          onChange={(v) => setFieldValue('phoneNumber', v)}
         />
         <TextInput
           type="password"

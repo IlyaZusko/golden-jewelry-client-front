@@ -6,15 +6,26 @@ import MainAppHeader from '@/components/MainAppHeader';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/firebase/config';
 import useUser from '@/firebase/useUser';
-import { useAppSelector } from '@/lib/store';
+import { useAppDispatch, useAppSelector } from '@/lib/store';
+import { clearListOrders } from '@/lib/store/service/ordersSlice';
+import { clearProducts } from '@/lib/store/service/productsSlice';
+import { clearUserData } from '@/lib/store/service/userSlice';
 
 import Tabs from './components/Tabs';
 
 const ProfileScreen = () => {
   const { userData } = useAppSelector((state) => state.user);
   const user = useUser();
+  const dispatch = useAppDispatch();
 
-  if (!userData.email) {
+  const handleSignOut = () => {
+    signOut(auth);
+    dispatch(clearUserData());
+    dispatch(clearProducts());
+    dispatch(clearListOrders());
+  };
+
+  if (!userData?.email) {
     return null;
   }
   return (
@@ -31,12 +42,12 @@ const ProfileScreen = () => {
             </p>
           </div>
           <p className="text-xs sm:text-lg font-light">{userData.email}</p>
-          <p className="text-xs sm:text-lg font-light">+375 (29) 222-12-46</p>
+          <p className="text-xs sm:text-lg font-light">{userData.phone}</p>
         </div>
         <Button
           variant="outline"
           className="max-h-7 sm:max-h-10 px-4 sm:px-8"
-          onClick={() => signOut(auth)}
+          onClick={() => handleSignOut()}
         >
           Выйти
         </Button>
