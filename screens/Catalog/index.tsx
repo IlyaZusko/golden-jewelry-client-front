@@ -13,7 +13,6 @@ import { setListProducts } from '@/lib/store/service/productsSlice';
 const CatalogScreen = () => {
   const user = useUser();
   const dispatch = useAppDispatch();
-  // const [products, setProducts] = useState<IProduct[]>([]);
   const { listProducts } = useAppSelector((state) => state.products);
 
   useEffect(() => {

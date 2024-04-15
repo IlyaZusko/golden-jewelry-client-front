@@ -5,7 +5,7 @@ import { advantagesComponent } from '@/lib/constants';
 
 const WhatYouRecieve = () => {
   return (
-    <div className="px-[30px] sm:px-[120px] pt-[60px] pb-[60px]">
+    <div className="px-[30px] sm:px-[120px] pt-[60px] pb-[60px]" id="about">
       <div>
         <p className="font-foglihten text-2xl sm:text-3xl">Что вы получаете</p>
         <p className="font-foglihten text-2xl sm:text-3xl pl-20">Выбирая нас</p>

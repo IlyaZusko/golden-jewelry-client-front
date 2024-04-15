@@ -4,12 +4,14 @@ import { IProduct, IProductOrder } from '../models/Product';
 
 export interface IProductsState {
   listProducts: IProduct[];
+  listPreviewProducts: IProduct[];
   listBucket: IProduct[];
   order: IProductOrder;
 }
 
 const initialState: IProductsState = {
   listProducts: [] as IProduct[],
+  listPreviewProducts: [] as IProduct[],
   listBucket: [] as IProduct[],
   order: {} as IProductOrder,
 };
@@ -23,6 +25,18 @@ export const productsSlice = createSlice({
         !state.listProducts.find((product) => product.id === action.payload.id)
       ) {
         state.listProducts = [...state.listProducts, action.payload];
+      }
+    },
+    setListPreviewProducts: (state, action: PayloadAction<IProduct>) => {
+      if (
+        !state.listPreviewProducts.find(
+          (product) => product.id === action.payload.id,
+        )
+      ) {
+        state.listPreviewProducts = [
+          ...state.listPreviewProducts,
+          action.payload,
+        ];
       }
     },
     setListBucket: (state, action: PayloadAction<IProduct>) => {
@@ -53,6 +67,7 @@ export const productsSlice = createSlice({
 
 export const {
   setListProducts,
+  setListPreviewProducts,
   setListBucket,
   removeFromBucket,
   clearBucket,

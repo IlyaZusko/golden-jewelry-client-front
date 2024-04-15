@@ -9,7 +9,10 @@ import ServiceItem from './ServiceItem';
 
 const Services = () => {
   return (
-    <div className="px-[30px] sm:px-[60px] lg:px-[120px] py-[60px] bg-custom-black-title flex flex-col justify-center items-center">
+    <div
+      className="px-[30px] sm:px-[60px] lg:px-[120px] py-[60px] bg-custom-black-title flex flex-col justify-center items-center"
+      id="services"
+    >
       <p className="font-foglihten text-xl sm:text-3xl text-white">
         Наши услуги
       </p>

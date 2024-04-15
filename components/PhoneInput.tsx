@@ -8,6 +8,7 @@ export interface PhoneInputProps
   onChange: (v: string) => void;
   error?: string | null;
   forForm?: boolean;
+  disabled?: boolean;
 }
 
 const PhoneInput = ({
@@ -15,6 +16,7 @@ const PhoneInput = ({
   onChange,
   error,
   forForm,
+  disabled,
   ...props
 }: PhoneInputProps) => {
   return (
@@ -29,6 +31,7 @@ const PhoneInput = ({
         )}
         onChange={(e) => onChange(e.target.value)}
         value={value}
+        disabled={disabled}
         {...props}
       />
       {error && <p className="text-[#EB5757] text-xs mt-1">{error}</p>}

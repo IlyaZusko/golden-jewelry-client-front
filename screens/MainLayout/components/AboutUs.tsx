@@ -4,8 +4,21 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 
 const AboutUs = () => {
+  const handleScroll = () => {
+    const content = document.getElementById('contact-form');
+    if (content) {
+      content.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
   return (
-    <div className="px-[30px] sm:px-[60px] lg:px-[120px] py-[60px]">
+    <div
+      className="px-[30px] sm:px-[60px] lg:px-[120px] py-[60px]"
+      id="about-us"
+    >
       <div>
         <p className="font-foglihten text-xl sm:text-3xl">
           Ювелирная мастерская
@@ -38,7 +51,11 @@ const AboutUs = () => {
             экземпляре с мельчайшей проработкой элементов по строгому
             соответствию эскизу.
           </p>
-          <Button variant={'default'} className="max-w-40 mt-4">
+          <Button
+            variant={'default'}
+            className="max-w-40 mt-4"
+            onClick={() => handleScroll()}
+          >
             Связаться с нами
           </Button>
         </div>
