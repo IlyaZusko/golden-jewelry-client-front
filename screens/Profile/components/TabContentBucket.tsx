@@ -80,6 +80,14 @@ const TabContentBucket = () => {
     }
   };
 
+  const getTruncatedTitle = (str: string) => {
+    if (str.length > 240) {
+      return `${str.slice(0, 240)}...`;
+    } else {
+      return str;
+    }
+  };
+
   return (
     <TabsContent value="bucket" className="pt-4 pb-12">
       <div className="flex flex-col sm:flex-row items-center justify-between pb-4 px-4">
@@ -135,8 +143,8 @@ const TabContentBucket = () => {
                 <p className="font-medium text-sm sm:text-lg">
                   {product.price} BYN
                 </p>
-                <p className="font-light text-xs sm:text-sm">
-                  {product.description}
+                <p className="font-light text-xs sm:text-sm max-w-[500px] text-pretty">
+                  {getTruncatedTitle(product.description)}
                 </p>
               </div>
             </div>

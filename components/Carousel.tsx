@@ -11,6 +11,16 @@ import {
 import { Button } from './ui/button';
 
 const CarouselSize = () => {
+  const handleScroll = () => {
+    const content = document.getElementById('about');
+    if (content) {
+      content.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    }
+  };
   return (
     <Carousel
       opts={{
@@ -29,7 +39,9 @@ const CarouselSize = () => {
         </p>
         <p className="text-center text-base">Восторг гарантирован!</p>
         <div className="flex justify-center items-center mt-8">
-          <Button variant={'default'}>Узнать больше</Button>
+          <Button variant={'default'} onClick={() => handleScroll()}>
+            Узнать больше
+          </Button>
         </div>
       </div>
       <CarouselContent>
