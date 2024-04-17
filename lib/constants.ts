@@ -32,6 +32,13 @@ export enum OrderStatuses {
   Cancelled = 'Отменён',
 }
 
+export enum ProductType {
+  All = 'allTypes',
+  Ring = 'ring',
+  Necklace = 'necklace',
+  Pendant = 'pendant',
+}
+
 export const navItemStyles =
   // eslint-disable-next-line quotes
   "relative w-fit block after:block after:content-[''] after:absolute after:h-[1px] after:bg-custom-yellow after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center";
