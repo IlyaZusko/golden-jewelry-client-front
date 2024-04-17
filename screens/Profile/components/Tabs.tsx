@@ -1,12 +1,8 @@
 import React from 'react';
 
-import {
-  TabsContent,
-  TabsList,
-  Tabs as TabsMain,
-  TabsTrigger,
-} from '@/components/ui/tabs';
+import { TabsList, Tabs as TabsMain, TabsTrigger } from '@/components/ui/tabs';
 
+import TabContentAccount from './TabContentAccount';
 import TabContentBucket from './TabContentBucket';
 import TabContentOrders from './TabContentOrders';
 
@@ -26,7 +22,7 @@ const Tabs = () => {
       </TabsList>
       <TabContentOrders />
       <TabContentBucket />
-      <TabsContent value="password">Change your password here.</TabsContent>
+      <TabContentAccount />
     </TabsMain>
   );
 };

@@ -23,7 +23,7 @@ const TextInput = ({
         type={type}
         placeholder={placeholder}
         className={cn(
-          'w-full h-10 bg-white border border-[#BEBEBE] rounded-full text-black px-5 text-xs',
+          'w-full h-10 bg-white border border-[#BEBEBE] rounded-full text-black px-5 text-xs focus:bg-custom-white',
           error ? 'border-[#EB5757]' : '',
         )}
         onChange={(e) => onChange(e.target.value)}

@@ -51,6 +51,9 @@ export const productsSlice = createSlice({
         (product) => product.id !== action.payload.id,
       );
     },
+    clearListProducts: (state) => {
+      state.listProducts = [];
+    },
     clearBucket: (state) => {
       state.listBucket = [];
     },
@@ -71,5 +74,6 @@ export const {
   setListBucket,
   removeFromBucket,
   clearBucket,
+  clearListProducts,
   clearProducts,
 } = productsSlice.actions;
