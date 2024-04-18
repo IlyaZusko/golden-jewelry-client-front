@@ -32,6 +32,13 @@ export enum OrderStatuses {
   Cancelled = 'Отменён',
 }
 
+export enum ContactType {
+  Question = 'question',
+  ServiceProduce = 'service_produce',
+  ServiceDesign = 'service-design',
+  ServiceRepair = 'service-repair',
+}
+
 export enum ProductType {
   All = 'allTypes',
   Ring = 'ring',

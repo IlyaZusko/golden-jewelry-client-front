@@ -1,3 +1,4 @@
+import { Url } from 'next/dist/shared/lib/router/router';
 import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -8,6 +9,7 @@ interface IServiceItem {
   image: StaticImageData;
   width: number;
   height: number;
+  url: Url;
 }
 
 const ServiceItem = ({
@@ -16,6 +18,7 @@ const ServiceItem = ({
   image,
   width,
   height,
+  url,
 }: IServiceItem) => {
   return (
     <div
@@ -34,7 +37,7 @@ const ServiceItem = ({
         <p className="text-xs font-light text-white mt-2">{subTitle}</p>
       </div>
 
-      <Link href={'#'}>
+      <Link href={url}>
         <p className="text-sm font-light text-white underline hover:text-custom-yellow">
           Подробнее
         </p>

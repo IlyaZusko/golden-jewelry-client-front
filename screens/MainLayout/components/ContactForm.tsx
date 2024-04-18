@@ -10,7 +10,7 @@ import useUser from '@/firebase/useUser';
 
 import { ContactFormSchema } from '../utils';
 
-interface IContactForm {
+interface IContactFormInitial {
   name: string;
   phoneNumber: string;
   message: string;
@@ -22,10 +22,15 @@ const initialValues = {
   message: '',
 };
 
-const ContactForm = () => {
+interface IContactForm {
+  isForService?: boolean;
+  contactType: string;
+}
+
+const ContactForm = ({ isForService, contactType }: IContactForm) => {
   const user = useUser();
   const [isSent, setIsSent] = useState(false);
-  const formik = useFormik<IContactForm>({
+  const formik = useFormik<IContactFormInitial>({
     initialValues,
     validationSchema: ContactFormSchema,
     enableReinitialize: true,
@@ -38,6 +43,7 @@ const ContactForm = () => {
           userPhone: values.phoneNumber,
           userMessage: values.message,
           isAuthUser: user ? true : false,
+          requestType: contactType,
         });
         if (docRef.id) {
           setIsSent(true);
@@ -63,7 +69,7 @@ const ContactForm = () => {
         disabled={isSent}
       />
       <TextInput
-        placeholder="Задайте свой вопрос"
+        placeholder={isForService ? 'Ваш комментарий' : 'Задайте свой вопрос'}
         value={values.message}
         onChange={(v) => setFieldValue('message', v)}
         error={errors.message}
