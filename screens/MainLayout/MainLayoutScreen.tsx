@@ -8,6 +8,7 @@ import MainAppHeader from '@/components/MainAppHeader';
 import ReviewsAccordion from '@/components/ReviewsAccordion';
 import Spinner from '@/components/Spinner';
 import useUser from '@/firebase/useUser';
+import { ContactType } from '@/lib/constants';
 
 import AboutUs from './components/AboutUs';
 import Catalog from './components/Catalog';
@@ -60,7 +61,7 @@ const LayoutScreen: React.FC = () => {
           <p className="text-xs font-light pl-[60px] sm:pl-[120px] lg:pl-[200px] text-white pt-3">
             Заполните форму ниже, и с вами свяжется сотрудник мастерской
           </p>
-          <ContactForm />
+          <ContactForm contactType={ContactType.Question} />
         </div>
 
         <div className="px-5 pt-[60px] pb-5 bg-custom-black-title flex flex-col justify-center items-start">

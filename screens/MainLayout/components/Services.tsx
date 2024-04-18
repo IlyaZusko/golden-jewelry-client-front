@@ -24,6 +24,7 @@ const Services = () => {
             image={Service1}
             width={260}
             height={479}
+            url={'/catalog'}
           />
           <ServiceItem
             title="Изготовление ювелирных изделий"
@@ -31,6 +32,7 @@ const Services = () => {
             image={Service2}
             width={260}
             height={479}
+            url={'/services/produce'}
           />
         </div>
 
@@ -41,6 +43,7 @@ const Services = () => {
             image={Service3}
             width={260}
             height={224}
+            url={'/services/repair'}
           />
           <ServiceItem
             title="Разработка дизайна"
@@ -48,6 +51,7 @@ const Services = () => {
             image={Service4}
             width={260}
             height={224}
+            url={'/services/design'}
           />
         </div>
       </div>
