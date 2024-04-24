@@ -4,7 +4,7 @@ export interface IOrder {
   productsNames: string[];
   productsIds: string[];
   totalPrice: number;
-  recieveDateRequest: Date;
+  recieveDateRequest: string;
   userPhoneNumber: string;
   status: string;
   orderId: string;
