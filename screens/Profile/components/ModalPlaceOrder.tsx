@@ -67,13 +67,20 @@ const ModalPlaceOrder = () => {
     onSubmit: async (values) => {
       const { phoneNumber, recieveDate } = values;
       if (recieveDate && user) {
+        const day = recieveDate.getDate();
+        const month = recieveDate.getMonth() + 1;
+        const year = recieveDate.getFullYear();
+        const formattedDay = day < 10 ? `0${day}` : day;
+        const formattedMonth = month < 10 ? `0${month}` : month;
+        const dateString = `${formattedDay}.${formattedMonth}.${year}`;
+
         const orderId = `${Math.floor(Math.random() * 9000) + 1000}-${Math.floor(Math.random() * 9000) + 1000}`;
         const docRef = await addDoc(collection(db, 'orders'), {
           userId: user.uid,
           productsNames: listBucket.map((product) => product.name),
           productsIds: listBucket.map((product) => product.id),
           totalPrice: getTotalBucketPrice(),
-          recieveDateRequest: recieveDate,
+          recieveDateRequest: dateString,
           userPhoneNumber: phoneNumber,
           status: OrderStatuses.InProcessing,
           orderId,
@@ -88,7 +95,7 @@ const ModalPlaceOrder = () => {
             productsNames: listBucket.map((product) => product.name),
             productsIds: listBucket.map((product) => product.id),
             totalPrice: getTotalBucketPrice(),
-            recieveDateRequest: recieveDate,
+            recieveDateRequest: dateString,
             userPhoneNumber: phoneNumber,
             status: OrderStatuses.InProcessing,
             orderId,

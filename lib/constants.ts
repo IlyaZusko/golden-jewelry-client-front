@@ -33,10 +33,10 @@ export enum OrderStatuses {
 }
 
 export enum ContactType {
-  Question = 'question',
-  ServiceProduce = 'service_produce',
-  ServiceDesign = 'service-design',
-  ServiceRepair = 'service-repair',
+  Question = 'Вопрос',
+  ServiceProduce = 'Услуга: Изготовление',
+  ServiceDesign = 'Услуга: Дизайн',
+  ServiceRepair = 'Услуга: Восстановление',
 }
 
 export enum ProductType {

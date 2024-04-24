@@ -1,6 +1,9 @@
-import { addDoc, collection } from 'firebase/firestore';
+import dayjs from 'dayjs';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-unassigned-import
+import 'dayjs/locale/ru';
 
 import PhoneInput from '@/components/PhoneInput';
 import TextInput from '@/components/TextInput';
@@ -44,6 +47,11 @@ const ContactForm = ({ isForService, contactType }: IContactForm) => {
           userMessage: values.message,
           isAuthUser: user ? true : false,
           requestType: contactType,
+          dateOfRequest: dayjs().locale('ru').format('D MMMM YYYY, HH:mm'),
+          isDone: false,
+        });
+        updateDoc(doc(db, 'callRequests', docRef.id), {
+          id: docRef.id,
         });
         if (docRef.id) {
           setIsSent(true);
