@@ -57,6 +57,7 @@ const SignUpScreen = () => {
         email,
         phone: phoneNumber,
         bucket: [],
+        id: userid,
       });
       router.push('/auth/sign-in');
     },
