@@ -45,24 +45,24 @@ const MainAppHeader = ({ isAuth, isHideRightButtons }: IMainAppHeader) => {
                 <Link href={'/auth/sign-in'}>Войти</Link>
               )}
             </Button>
-            <div className="flex flex-col gap-y-2 pt-5 justify-center">
-              <Link className={navItemStyles} href={'/catalog'}>
+            <div className="flex flex-col gap-y-2 pt-5 justify-start">
+              <Link href={'/catalog'} className="text-center">
                 Каталог
               </Link>
               <button
-                className={navItemStyles}
+                // className={navItemStyles}
                 onClick={() => router.push('/?to=services')}
               >
                 Услуги
               </button>
               <button
-                className={navItemStyles}
+                // className={navItemStyles}
                 onClick={() => router.push('/?to=about-us')}
               >
                 О нас
               </button>
               <button
-                className={navItemStyles}
+                // className={navItemStyles}
                 onClick={() => router.push('/?to=contact-form')}
               >
                 Написать нам

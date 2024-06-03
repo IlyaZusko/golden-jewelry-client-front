@@ -1,15 +1,19 @@
 'use client';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 import PhoneInput from '@/components/PhoneInput';
 import TextInput from '@/components/TextInput';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { auth, db } from '@/firebase/config';
 import BackgroundPicture from '@/public/images/background-1.jpg';
 
@@ -34,6 +38,8 @@ const initialValues: ISignIn = {
 };
 
 const SignUpScreen = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
   const router = useRouter();
   const formik = useFormik<ISignIn>({
     initialValues,
@@ -49,7 +55,13 @@ const SignUpScreen = () => {
         email,
         passwordRepeat,
       );
-
+      if (auth.currentUser) {
+        sendEmailVerification(auth.currentUser, {
+          handleCodeInApp: true,
+          url: 'https://goldenjewelry-aa7b8.firebaseapp.com',
+        });
+        setOpen(true);
+      }
       const userid = user.user.uid;
       await setDoc(doc(db, 'users', userid), {
         firstName,
@@ -59,7 +71,6 @@ const SignUpScreen = () => {
         bucket: [],
         id: userid,
       });
-      router.push('/auth/sign-in');
     },
   });
 
@@ -145,6 +156,29 @@ const SignUpScreen = () => {
         />
         <p className="text-base text-white">Вернуться</p>
       </Link>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-[300px] custom400:max-w-[400px] sm:max-w-[600px] bg-custom-black-title flex flex-col text-white rounded-[8px]">
+          <p className="font-foglihten text-xl sm:text-2xl">
+            Письмо отправлено
+          </p>
+          <div className="w-full h-[1px] bg-gray-500" />
+          <p className="text-sm font-light text-gray-400">
+            Мы отправили на вашу почту письмо с ссылкой для подтверждения.
+            Перейдите по ней прежде чем войти в аккаунт.
+          </p>
+          <div className="flex flex-row justify-end gap-x-4">
+            <Button
+              size="small"
+              onClick={() => {
+                router.push('/auth/sign-in');
+                setOpen(false);
+              }}
+            >
+              Понятно
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

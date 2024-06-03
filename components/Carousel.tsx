@@ -25,6 +25,7 @@ const CarouselSize = () => {
     <Carousel
       opts={{
         align: 'center',
+        loop: true,
       }}
       className="w-full max-w-full relative"
       plugins={[
