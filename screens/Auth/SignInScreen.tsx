@@ -1,10 +1,10 @@
 'use client';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 import TextInput from '@/components/TextInput';
 import { Button } from '@/components/ui/button';
@@ -25,6 +25,7 @@ const initialValues: ISignIn = {
 
 const SignInScreen = () => {
   const router = useRouter();
+  const [isVerifyError, setVerifyError] = useState<boolean>(false);
   const formik = useFormik<ISignIn>({
     initialValues,
     validationSchema: SignInSchema,
@@ -34,8 +35,13 @@ const SignInScreen = () => {
     onSubmit: async (values) => {
       const { email, password } = values;
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          router.push('/profile');
+        .then((res) => {
+          if (res.user.emailVerified) {
+            router.push('/profile');
+          } else {
+            signOut(auth);
+            setVerifyError(true);
+          }
         })
         .catch((error) => console.log(error.message));
     },
@@ -71,6 +77,9 @@ const SignInScreen = () => {
           placeholder="Пароль"
           error={errors.password}
         />
+        {isVerifyError && (
+          <p className="text-[#EB5757] text-xs mt-1">Почта не подтверждена</p>
+        )}
         <Button className="mt-3" onClick={() => submitForm()}>
           Войти
         </Button>
