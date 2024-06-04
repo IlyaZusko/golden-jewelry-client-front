@@ -19,8 +19,8 @@ interface ISignIn {
 }
 
 const initialValues: ISignIn = {
-  email: 'ilyazusko1@gmail.com',
-  password: 'Gjgeufq1',
+  email: '',
+  password: '',
 };
 
 const SignInScreen = () => {
