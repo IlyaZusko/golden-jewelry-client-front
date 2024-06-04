@@ -17,6 +17,7 @@ import { OrderStatuses } from '@/lib/constants';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { setListOrders } from '@/lib/store/service/ordersSlice';
 import { clearBucket } from '@/lib/store/service/productsSlice';
+import { cn } from '@/lib/utils';
 
 interface IModalPlaceOrder {
   recieveDate: Date | undefined;
@@ -32,6 +33,7 @@ const ModalPlaceOrder = () => {
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [payType, setPayType] = useState<string>('card');
 
   const initialValues: IModalPlaceOrder = {
     recieveDate: undefined,
@@ -84,6 +86,7 @@ const ModalPlaceOrder = () => {
           userPhoneNumber: phoneNumber,
           status: OrderStatuses.InProcessing,
           orderId,
+          payType,
           id: '',
         });
         await updateDoc(doc(db, 'orders', docRef.id), {
@@ -149,6 +152,40 @@ const ModalPlaceOrder = () => {
           После подтверждения заказа наш менеджер свяжется с вами чтобы уточнить
           остальные детали доставки и оплаты
         </p>
+        <div className="w-full flex flex-row gap-4">
+          <button
+            className="flex flex-row items-center gap-x-2"
+            onClick={() => setPayType('card')}
+          >
+            <div
+              className={cn(
+                'w-[20px] h-[20px] rounded-[300px]',
+                payType === 'card'
+                  ? 'bg-custom-yellow'
+                  : 'border border-custom-yellow',
+              )}
+            />
+            <p className="text-xs font-light text-white">
+              Оплата картой курьеру
+            </p>
+          </button>
+          <button
+            className="flex flex-row items-center gap-x-2"
+            onClick={() => setPayType('cash')}
+          >
+            <div
+              className={cn(
+                'w-[20px] h-[20px] rounded-[300px]',
+                payType === 'cash'
+                  ? 'bg-custom-yellow'
+                  : 'border border-custom-yellow',
+              )}
+            />
+            <p className="text-xs font-light text-white">
+              Оплата наличными курьеру
+            </p>
+          </button>
+        </div>
         <div className="flex flex-row justify-end gap-x-4">
           <DialogClose>
             <Button size="small" variant="outline">
