@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Footer = () => {
+  const router = useRouter();
+
   return (
     <div className="w-full px-[30px] xs:px-[60px] pt-6 xs:pt-12 pb-6 bg-custom-white rounded-[30px] flex flex-col-reverse xs:flex-row justify-between items-center gap-y-6">
       <div>
@@ -11,24 +14,38 @@ const Footer = () => {
             <Link className="text-sm font-light hover:underline" href="#">
               Главная
             </Link>
-            <Link className="text-sm font-light hover:underline" href="#">
+            <Link
+              className="text-sm font-light hover:underline"
+              href={'/catalog'}
+            >
               Каталог
             </Link>
-            <Link className="text-sm font-light hover:underline" href="#">
+            <button
+              className="text-sm font-light hover:underline text-start"
+              onClick={() => router.push('/?to=services')}
+            >
               Услуги
-            </Link>
+            </button>
           </div>
           <div className="flex flex-col gap-y-[2px]">
-            <Link className="text-sm font-light hover:underline" href="#">
+            <button
+              className="text-sm font-light hover:underline text-start"
+              onClick={() => router.push('/?to=about-us')}
+            >
               О нас
-            </Link>
-            <Link className="text-sm font-light hover:underline" href="#">
-              Связаться
-            </Link>
+            </button>
+            <button
+              className="text-sm font-light hover:underline text-start"
+              onClick={() => router.push('/?to=contact-form')}
+            >
+              Написать нам
+            </button>
           </div>
         </div>
       </div>
-      <p className="font-foglihten text-2xl font-medium">Golden Jewelry</p>
+      <Link href={'/'} className="font-foglihten text-2xl font-medium">
+        Golden Jewelry
+      </Link>
     </div>
   );
 };
