@@ -2,6 +2,7 @@
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signOut,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
@@ -39,6 +40,7 @@ const initialValues: ISignIn = {
 
 const SignUpScreen = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isAuthError, setAuthError] = useState<boolean>(false);
 
   const router = useRouter();
   const formik = useFormik<ISignIn>({
@@ -50,31 +52,39 @@ const SignUpScreen = () => {
     onSubmit: async (values) => {
       const { firstName, lastName, email, passwordRepeat, phoneNumber } =
         values;
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        passwordRepeat,
-      );
-      if (auth.currentUser) {
-        sendEmailVerification(auth.currentUser, {
-          handleCodeInApp: true,
-          url: 'https://goldenjewelry-aa7b8.firebaseapp.com',
+      createUserWithEmailAndPassword(auth, email, passwordRepeat)
+        .then(async (user) => {
+          if (auth.currentUser) {
+            await sendEmailVerification(auth.currentUser, {
+              handleCodeInApp: true,
+              url: 'https://goldenjewelry-aa7b8.firebaseapp.com',
+            });
+            await signOut(auth);
+            setOpen(true);
+          }
+          const userid = user.user.uid;
+          await setDoc(doc(db, 'users', userid), {
+            firstName,
+            lastName,
+            email,
+            phone: phoneNumber,
+            bucket: [],
+            id: userid,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          setAuthError(true);
         });
-        setOpen(true);
-      }
-      const userid = user.user.uid;
-      await setDoc(doc(db, 'users', userid), {
-        firstName,
-        lastName,
-        email,
-        phone: phoneNumber,
-        bucket: [],
-        id: userid,
-      });
     },
   });
 
   const { values, submitForm, setFieldValue, errors } = formik;
+
+  const handleInputChange = (field: string, value: string) => {
+    setAuthError(false);
+    setFieldValue(field, value);
+  };
 
   return (
     <div
@@ -94,14 +104,14 @@ const SignUpScreen = () => {
           <TextInput
             type="text"
             value={values.firstName}
-            onChange={(v) => setFieldValue('firstName', v)}
+            onChange={(v) => handleInputChange('firstName', v)}
             placeholder="Имя"
             error={errors.firstName}
           />
           <TextInput
             type="text"
             value={values.lastName}
-            onChange={(v) => setFieldValue('lastName', v)}
+            onChange={(v) => handleInputChange('lastName', v)}
             placeholder="Фамилия"
             error={errors.lastName}
           />
@@ -109,28 +119,33 @@ const SignUpScreen = () => {
         <TextInput
           type="email"
           value={values.email}
-          onChange={(v) => setFieldValue('email', v)}
+          onChange={(v) => handleInputChange('email', v)}
           placeholder="Электронная почта"
           error={errors.email}
         />
         <PhoneInput
           value={values.phoneNumber}
-          onChange={(v) => setFieldValue('phoneNumber', v)}
+          onChange={(v) => handleInputChange('phoneNumber', v)}
         />
         <TextInput
           type="password"
           value={values.password}
-          onChange={(v) => setFieldValue('password', v)}
+          onChange={(v) => handleInputChange('password', v)}
           placeholder="Пароль"
           error={errors.password}
         />
         <TextInput
           type="password"
           value={values.passwordRepeat}
-          onChange={(v) => setFieldValue('passwordRepeat', v)}
+          onChange={(v) => handleInputChange('passwordRepeat', v)}
           placeholder="Пароль еще раз"
           error={errors.passwordRepeat}
         />
+        {isAuthError && (
+          <p className="text-[#EB5757] text-xs mt-1 -mb-4">
+            Почта уже используется
+          </p>
+        )}
         <Button className="mt-3" onClick={() => submitForm()}>
           Зарегистрироваться
         </Button>
