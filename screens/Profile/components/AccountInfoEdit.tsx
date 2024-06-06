@@ -66,9 +66,9 @@ const AccountInfoEdit = () => {
   const isSaveDisabled = _.isEqual(values, initialValues);
 
   return (
-    <div className="w-full max-w-[40vw] bg-custom-black-title rounded-[16px] py-4 px-6 flex flex-col gap-y-4">
+    <div className="w-full sm:max-w-[40vw] bg-custom-black-title rounded-[16px] py-4 px-6 flex flex-col gap-y-4">
       <p className="text-white font-medium">Личная информация</p>
-      <div className="flex flex-row gap-x-4">
+      <div className="flex flex-col sm:flex-row gap-x-4 gap-y-2">
         <TextInput
           onChange={(v) => setFieldValue('firstName', v)}
           value={values.firstName}
