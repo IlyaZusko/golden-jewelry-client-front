@@ -26,6 +26,7 @@ const initialValues: ISignIn = {
 const SignInScreen = () => {
   const router = useRouter();
   const [isVerifyError, setVerifyError] = useState<boolean>(false);
+  const [isAuthError, setAuthError] = useState<boolean>(false);
   const formik = useFormik<ISignIn>({
     initialValues,
     validationSchema: SignInSchema,
@@ -43,11 +44,20 @@ const SignInScreen = () => {
             setVerifyError(true);
           }
         })
-        .catch((error) => console.log(error.message));
+        .catch((error) => {
+          console.log(error.message);
+          setAuthError(true);
+        });
     },
   });
 
   const { values, submitForm, setFieldValue, errors } = formik;
+
+  const handleInputChange = (field: string, value: string) => {
+    setAuthError(false);
+    setVerifyError(false);
+    setFieldValue(field, value);
+  };
 
   return (
     <div
@@ -66,19 +76,26 @@ const SignInScreen = () => {
         <TextInput
           type="email"
           value={values.email}
-          onChange={(v) => setFieldValue('email', v)}
+          onChange={(v) => handleInputChange('email', v)}
           placeholder="Электронная почта"
           error={errors.email}
         />
         <TextInput
           type="password"
           value={values.password}
-          onChange={(v) => setFieldValue('password', v)}
+          onChange={(v) => handleInputChange('password', v)}
           placeholder="Пароль"
           error={errors.password}
         />
         {isVerifyError && (
-          <p className="text-[#EB5757] text-xs mt-1">Почта не подтверждена</p>
+          <p className="text-[#EB5757] text-xs mt-1 -mb-4">
+            Почта не подтверждена
+          </p>
+        )}
+        {isAuthError && (
+          <p className="text-[#EB5757] text-xs mt-1 -mb-4">
+            Проверьте данные и повторите попытку
+          </p>
         )}
         <Button className="mt-3" onClick={() => submitForm()}>
           Войти
